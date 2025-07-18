@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sorteio de Números</title>
+  <style>
+    /* Reset de estilo e fonte padrão */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    /* Layout geral com 3 colunas */
+    .layout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Colunas laterais para patrocinadores */
+    .coluna-lateral {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 240px;
+    }
+
+    .titulo-abencoadores {
+      font-size: 22px;
+      font-weight: bold;
+      color: red;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .grid-patrocinadores {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-patrocinadores img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      background: #fff;
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Área central do sorteio */
+    .centro {
+      flex: 1;
+      max-width: 900px;
+      background-color: white;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .logo img {
+      max-height: 200px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .girar {
+      background-color: #2196F3;
+    }
+
+    .reiniciar {
+      background-color: #f44336;
+    }
+
+    #mensagem {
+      font-size: 28px;
+      color: green;
+      margin-top: 30px;
+    }
+
+    #numero {
+      font-size: 80px;
+      font-weight: bold;
+      color: #2c7a00;
+    }
+
+    #historico {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f1f1f1;
+      border-radius: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 18px;
+    }
+
+    /* Responsivo para telas menores */
+    @media (max-width: 1280px) {
+      .layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .coluna-lateral {
+        width: 100%;
+      }
+
+      .grid-patrocinadores {
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: center;
+      }
+
+      .centro {
+        max-width: 100%;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      #numero {
+        font-size: 60px;
+      }
+
+      #mensagem {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+
+    <!-- COLUNA DA ESQUERDA COM PATROCINADORES -->
+    <div class="coluna-lateral">
+      <div class="titulo-abencoadores">ABENÇOADORES</div>
+      <div class="grid-patrocinadores">
+        <!-- Exemplo de patrocinadores -->
+        <img src="Patrocinadores/pat1.png">
+        <img src="Patrocinadores/pat2.png">
+        <img src="Patrocinadores/pat3.png">
+        <img src="Patrocinadores/pat4.png">
+        <img src="Patrocinadores/pat5.png">
+        <img src="Patrocinadores/pat6.png">
+        <img src="Patrocinadores/pat7.png">
+        <img src="Patrocinadores/pat8.png">
+        <img src="Patrocinadores/pat9.png">
+        <img src="Patrocinadores/pat10.png">
+      </div>
+    </div>
+
+    <!-- ÁREA CENTRAL DO SORTEIO -->
+    <div class="centro">
+      <div class="logo">
+        <!-- Logo principal -->
+        <img src="logo_af/logo.png" alt="Logo principal">
+
+        <!-- QR Code do grupo de WhatsApp (dentro da pasta logo_af) -->
+        <img src="logo_af/qr.png" alt="QR Code do WhatsApp"
+             style="max-height: 330px; margin-top: 15px;">
+
+        <!-- Texto abaixo do QR Code -->
+        <p style="font-size: 18px; margin-top: 10px;">Entre no nosso grupo do WhatsApp!</p>
+      </div>
+
+      <!-- Título e botões -->
+      <h1>🎲 Sorteio de Números 🎲</h1>
+      <button class="girar" onclick="girarRoleta()">Girar Números</button>
+      <button class="reiniciar" onclick="reiniciarSorteio()">Reiniciar Sorteio</button>
+
+      <!-- Número sorteado -->
+      <div id="mensagem"></div>
+      <div id="numero"></div>
+
+      <!-- Histórico de números -->
+      <div id="historico"></div>
+    </div>
+
+    <!-- COLUNA DA DIREITA COM PATROCINADORES -->
+    <div class="coluna-lateral">
+      <div class="titulo-abencoadores">ABENÇOADORES</div>
+      <div class="grid-patrocinadores">
+        <img src="Patrocinadores/pat11.png">
+        <img src="Patrocinadores/pat12.png">
+        <img src="Patrocinadores/pat13.png">
+        <img src="Patrocinadores/pat14.png">
+        <img src="Patrocinadores/pat15.png">
+        <img src="Patrocinadores/pat16.png">
+        <img src="Patrocinadores/pat17.png">
+        <img src="Patrocinadores/pat18.png">
+        <img src="Patrocinadores/pat19.png">
+        <img src="Patrocinadores/pat20.png">
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DO SORTEIO -->
+  <script>
+    const numerosSorteados = new Set();
+    const LIMITE_NUMEROS = 300;
+
+    function girarRoleta() {
+      const mensagem = document.getElementById("mensagem");
+      const numero = document.getElementById("numero");
+
+      let contador = 0;
+      const maximoGiros = 20;
+      const intervalo = 30;
+      let intervaloID;
+
+      mensagem.innerText = "";
+      numero.innerText = "";
+
+      if (numerosSorteados.size >= LIMITE_NUMEROS) {
+        alert("Todos os números já foram sorteados!");
+        return;
+      }
+
+      intervaloID = setInterval(() => {
+        const numeroTemp = Math.floor(Math.random() * LIMITE_NUMEROS) + 1;
+        numero.innerText = numeroTemp;
+        contador++;
+
+        if (contador >= maximoGiros) {
+          clearInterval(intervaloID);
+
+          let numeroFinal;
+          do {
+            numeroFinal = Math.floor(Math.random() * LIMITE_NUMEROS) + 1;
+          } while (numerosSorteados.has(numeroFinal));
+
+          numerosSorteados.add(numeroFinal);
+
+          mensagem.innerText = "🎉 Número sorteado:";
+          numero.innerText = numeroFinal;
+
+          atualizarHistorico();
+        }
+      }, intervalo);
+    }
+
+    function reiniciarSorteio() {
+      numerosSorteados.clear();
+      document.getElementById("mensagem").innerText = "";
+      document.getElementById("numero").innerText = "";
+      document.getElementById("historico").innerText = "";
+    }
+
+    function atualizarHistorico() {
+      const historico = document.getElementById("historico");
+      const listaOrdenada = Array.from(numerosSorteados).sort((a, b) => a - b);
+      historico.innerHTML = `<strong>Números sorteados (${listaOrdenada.length}):</strong><br>${listaOrdenada.join(', ')}`;
+    }
+  </script>
+</body>
+</html>
